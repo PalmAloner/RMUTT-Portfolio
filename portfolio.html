@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ผลงาน - Portfolio มทร.ธัญบุรี</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #004E89;
+            --accent: #FFA41B;
+            --dark: #1A1A2E;
+        }
+
+        body {
+            font-family: 'Sarabun', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 78, 137, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 80%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: white;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 164, 27, 0.4);
+            border-radius: 50%;
+            animation: rise 15s infinite ease-in;
+        }
+
+        @keyframes rise {
+            0% { bottom: -10%; opacity: 0; }
+            50% { opacity: 1; }
+            100% { bottom: 110%; opacity: 0; }
+        }
+
+        .portfolio-section {
+            min-height: 100vh;
+            padding: 10rem 5% 4rem;
+        }
+
+        .portfolio-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .university-badge {
+            display: inline-block;
+            background: rgba(255, 164, 27, 0.2);
+            border: 2px solid var(--accent);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 0.95rem;
+        }
+
+        .portfolio-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .portfolio-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .portfolio-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-project {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 30px;
+            border: 3px solid var(--accent);
+            margin-bottom: 4rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-badge {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .main-project h2 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .main-project p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            opacity: 0.95;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .detail-item {
+            background: rgba(0, 78, 137, 0.3);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .detail-item h4 {
+            color: var(--accent);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .detail-item p {
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        .project-features {
+            margin: 2rem 0;
+        }
+
+        .project-features h3 {
+            color: var(--accent);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features-list li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 107, 53, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--secondary);
+        }
+
+        .certificates-section {
+            margin-top: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .certificate-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 164, 27, 0.3);
+            transition: all 0.3s;
+        }
+
+        .certificate-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+            background: rgba(255, 164, 27, 0.15);
+        }
+
+        .certificate-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .certificate-card h3 {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .certificate-card p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .certificate-count {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 968px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                flex-direction: column;
+                background: rgba(0, 78, 137, 0.98);
+                width: 250px;
+                padding: 2rem;
+                transition: right 0.3s;
+                border-radius: 10px 0 0 10px;
+                border-left: 3px solid var(--accent);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .portfolio-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .main-project {
+                padding: 2rem;
+            }
+
+            .main-project h2 {
+                font-size: 2rem;
+            }
+
+            .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portfolio-header h1 {
+                font-size: 2rem;
+            }
+
+            .project-links {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <nav>
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <span>พอร์ตฟอลิโอ มทร.ธัญบุรี</span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">หน้าแรก</a></li>
+            <li><a href="about.html">เกี่ยวกับฉัน</a></li>
+            <li><a href="skills.html">ทักษะ</a></li>
+            <li><a href="portfolio.html" class="active">ผลงาน</a></li>
+            <li><a href="certificates.html">เกียรติบัตร</a></li>
+            <li><a href="contact.html">ติดต่อ</a></li>
+        </ul>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <section class="portfolio-section">
+        <div class="portfolio-header">
+            <div class="university-badge">
+                <i class="fas fa-university"></i> สมัครเข้า มทร.ธัญบุรี
+            </div>
+            <h1>ผลงานของผม</h1>
+            <p>โปรเจกต์และเกียรติบัติที่ผมมี</p>
+        </div>
+
+        <div class="portfolio-container">
+            <!-- Main Project -->
+            <div class="main-project">
+                <div class="project-header">
+                    <div class="project-badge">
+                        <i class="fas fa-star"></i> โปรเจกต์หลัก
+                    </div>
+                </div>
+                
+                <h2><i class="fas fa-globe"></i> เว็บไซต์พอร์ตฟอลิโอส่วนตัว</h2>
+                <p>
+                    เว็บไซต์นี้เป็นโปรเจกต์แรกและโปรเจกต์หลักของผม ที่สร้างขึ้นเพื่อแสดงข้อมูลส่วนตัว ทักษะ และผลงาน
+                    สำหรับการสมัครเข้าศึกษาต่อที่ <strong style="color: var(--accent);">มหาวิทยาลัยเทคโนโลยีราชมงคลธัญบุรี</strong> 
+                    คณะวิศวกรรมศาสตร์ สาขาวิศวกรรมทั่วไป (วิศวกรรมคอมพิวเตอร์)
+                </p>
+
+                <div class="project-details">
+                    <div class="detail-item">
+                        <h4><i class="fas fa-code"></i> เทคโนโลยี</h4>
+                        <p>HTML, CSS, JavaScript</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4><i class="fas fa-calendar"></i> ระยะเวลา</h4>
+                        <p>สร้างในปี 2024-2025</p>
+                    </div>
+                    <div class="detail-item">
+                        <h4><i class="fas fa-user"></i> บทบาท</h4>
+                        <p>ออกแบบและพัฒนาเอง</p>
+                    </div>
+                </div>
+
+                <div class="project-features">
+                    <h3><i class="fas fa-check-circle"></i> คุณสมบัติของเว็บไซต์</h3>
+                    <ul class="features-list">
+                        <li>หน้าแสดงข้อมูลส่วนตัวและประวัติการศึกษา</li>
+                        <li>หน้าแสดงทักษะและความสามารถต่างๆ</li>
+                        <li>หน้าแสดงผลงานและเกียรติบัติ</li>
+                        <li>หน้าติดต่อพร้อมข้อมูลการติดต่อ</li>
+                        <li>ออกแบบให้ใช้งานได้บนมือถือและคอมพิวเตอร์</li>
+                        <li>มี Animation และ Effects สวยงาม</li>
+                    </ul>
+                </div>
+
+                <div class="project-features">
+                    <h3><i class="fas fa-lightbulb"></i> สิ่งที่ได้เรียนรู้</h3>
+                    <ul class="features-list">
+                        <li>การเขียน HTML เพื่อสร้างโครงสร้างเว็บไซต์</li>
+                        <li>การใช้ CSS ในการตกแต่งและจัดวางหน้าเว็บ</li>
+                        <li>การใช้ JavaScript เบื้องต้นเพื่อสร้าง Interaction</li>
+                        <li>การออกแบบ Responsive Design</li>
+                        <li>การแก้ปัญหาเมื่อเจอ Bug หรือข้อผิดพลาด</li>
+                        <li>ความอดทนและความตั้งใจในการทำงาน</li>
+                    </ul>
+                </div>
+
+                <div class="project-links">
+                    <a href="#" class="btn btn-primary">
+                        <i class="fas fa-eye"></i> ดูเว็บไซต์
+                    </a>
+                    <a href="https://github.com/PalmAloner" target="_blank" class="btn btn-secondary">
+                        <i class="fab fa-github"></i> ดู GitHub
+                    </a>
+                </div>
+            </div>
+
+            <!-- Certificates Section -->
+            <div class="certificates-section">
+                <h2 class="section-title">
+                    <i class="fas fa-certificate"></i>
+                    เกียรติบัติและรางวัล
+                </h2>
+
+                <div class="certificates-grid">
+                    <div class="certificate-card">
+                        <div class="certificate-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h3>เกียรติบัติที่เกี่ยวข้อง</h3>
+                        <p>
+                            เกียรติบัติด้านคอมพิวเตอร์หรือเทคโนโลยี
+                            ที่ได้รับจากการเข้าร่วมกิจกรรมหรือการแข่งขัน
+                        </p>
+                        <span class="certificate-count">2 ใบ</span>
+                    </div>
+
+                    <div class="certificate-card">
+                        <div class="certificate-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>เกียรติบัติกิจกรรม</h3>
+                        <p>
+                            เกียรติบัติจากการเข้าร่วมกิจกรรมต่างๆ ในโรงเรียน
+                            แสดงถึงการมีส่วนร่วมและความรับผิดชอบ
+                        </p>
+                        <span class="certificate-count">2 ใบ</span>
+                    </div>
+
+                    <div class="certificate-card">
+                        <div class="certificate-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <h3>เกียรติบัติภาษาอังกฤษ</h3>
+                        <p>
+                            เกียรติบัติด้านภาษาอังกฤษ
+                            แสดงถึงความสามารถในการสื่อสารและเรียนรู้
+                        </p>
+                        <span class="certificate-count">1 ใบ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 60; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+            particle.style.width = (Math.random() * 5 + 5) + 'px';
+            particle.style.height = particle.style.width;
+            particlesContainer.appendChild(particle);
+        }
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

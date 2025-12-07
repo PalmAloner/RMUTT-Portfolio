@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เกียรติบัตร - Portfolio มทร.ธัญบุรี</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #004E89;
+            --accent: #FFA41B;
+            --dark: #1A1A2E;
+        }
+
+        body {
+            font-family: 'Sarabun', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 78, 137, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 80%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: white;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 164, 27, 0.4);
+            border-radius: 50%;
+            animation: rise 15s infinite ease-in;
+        }
+
+        @keyframes rise {
+            0% { bottom: -10%; opacity: 0; }
+            50% { opacity: 1; }
+            100% { bottom: 110%; opacity: 0; }
+        }
+
+        .certificates-section {
+            min-height: 100vh;
+            padding: 10rem 5% 4rem;
+        }
+
+        .certificates-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .university-badge {
+            display: inline-block;
+            background: rgba(255, 164, 27, 0.2);
+            border: 2px solid var(--accent);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 0.95rem;
+        }
+
+        .certificates-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .certificates-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .certificates-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .stats-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid rgba(255, 164, 27, 0.3);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            background: rgba(255, 164, 27, 0.15);
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .stat-card i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .stat-card h3 {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .stat-card p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .category-section {
+            margin-bottom: 4rem;
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 2.2rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .category-title i {
+            font-size: 2.5rem;
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .certificate-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 164, 27, 0.3);
+            transition: all 0.3s;
+        }
+
+        .certificate-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.4);
+            background: rgba(255, 164, 27, 0.15);
+        }
+
+        .certificate-image {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            background: rgba(0, 78, 137, 0.3);
+            cursor: pointer;
+        }
+
+        .certificate-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .certificate-card:hover .certificate-image img {
+            transform: scale(1.1);
+        }
+
+        .certificate-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255, 107, 53, 0.9), rgba(0, 78, 137, 0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .certificate-image:hover .certificate-overlay {
+            opacity: 1;
+        }
+
+        .overlay-icon {
+            font-size: 4rem;
+            color: white;
+        }
+
+        .certificate-info {
+            padding: 2rem;
+        }
+
+        .certificate-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .certificate-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .certificate-issuer {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .certificate-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .certificate-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.85;
+            margin-top: 1rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(255, 164, 27, 0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 2rem;
+            right: 3rem;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10000;
+        }
+
+        .close-modal:hover {
+            color: var(--accent);
+            transform: scale(1.2) rotate(90deg);
+        }
+
+        @media (max-width: 968px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                flex-direction: column;
+                background: rgba(0, 78, 137, 0.98);
+                width: 250px;
+                padding: 2rem;
+                transition: right 0.3s;
+                border-radius: 10px 0 0 10px;
+                border-left: 3px solid var(--accent);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .certificates-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .close-modal {
+                font-size: 3rem;
+                right: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .certificates-header h1 {
+                font-size: 2rem;
+            }
+
+            .category-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <nav>
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <span>พอร์ตฟอลิโอ มทร.ธัญบุรี</span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">หน้าแรก</a></li>
+            <li><a href="about.html">เกี่ยวกับฉัน</a></li>
+            <li><a href="skills.html">ทักษะ</a></li>
+            <li><a href="portfolio.html">ผลงาน</a></li>
+            <li><a href="certificates.html" class="active">เกียรติบัตร</a></li>
+            <li><a href="contact.html">ติดต่อ</a></li>
+        </ul>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <section class="certificates-section">
+        <div class="certificates-header">
+            <div class="university-badge">
+                <i class="fas fa-university"></i> สมัครเข้า มทร.ธัญบุรี
+            </div>
+            <h1>เกียรติบัตรของผม</h1>
+            <p>เกียรติบัตรและรางวัลที่ได้รับจากกิจกรรมต่างๆ</p>
+        </div>
+
+        <div class="certificates-container">
+            <!-- Stats Summary -->
+            <div class="stats-summary">
+                <div class="stat-card">
+                    <i class="fas fa-certificate"></i>
+                    <h3>4-7</h3>
+                    <p>เกียรติบัตรทั้งหมด</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-award"></i>
+                    <h3>2</h3>
+                    <p>ด้านเทคโนโลยี</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3>2</h3>
+                    <p>กิจกรรม</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-language"></i>
+                    <h3>1</h3>
+                    <p>ภาษาอังกฤษ</p>
+                </div>
+            </div>
+
+            <!-- Technology Related Certificates -->
+            <div class="category-section">
+                <h2 class="category-title">
+                    <i class="fas fa-laptop-code"></i>
+                    เกียรติบัตรด้านเทคโนโลยี
+                </h2>
+                <div class="certificates-grid">
+                    <div class="certificate-card">
+                        <div class="certificate-image" onclick="openModal('cert2.jpg')">
+                            <img src="cert2.jpg" alt="Certificate 1" onerror="this.src='https://via.placeholder.com/400x300/004E89/ffffff?text=เกียรติบัตร+คอมพิวเตอร์'">
+                            <div class="certificate-overlay">
+                                <i class="fas fa-search-plus overlay-icon"></i>
+                            </div>
+                        </div>
+                        <div class="certificate-info">
+                            <span class="certificate-badge">คอมพิวเตอร์</span>
+                            <h3>การแข่งขันสร้าง Webpage ประเภท Text Editor งานศิลปหัตถกรรมนักเรียน ระดับเขตพื้นที่การศึกษา</h3>
+                            <p class="certificate-issuer">
+                                <i class="fas fa-building"></i>
+                                จากสำนักงานเขตพื้นที่การศึกษามัธยมศึกษาปทุมธานี
+                            </p>
+                            <p class="certificate-date">
+                                <i class="fas fa-calendar"></i>
+                                พ.ศ. 2565
+                            </p>
+                            <p class="certificate-description">
+                                ได้รับรางวัลระดับเหรียญทองรองชนะเลิศอันดับที่ ๑ การแข่งขันสร้าง Webpage ประเภท Text Editor งานศิลปหัตถกรรมนักเรียน ระดับเขตพื้นที่การศึกษา ครั้งที่ ๗๐ ประจำปีการศึกษา ๒๕๖๕
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="certificates-grid">
+                    <div class="certificate-card">
+                        <div class="certificate-image" onclick="openModal('cert1.jpg')">
+                            <img src="cert1.jpg" alt="Certificate 2" onerror="this.src='https://via.placeholder.com/400x300/004E89/ffffff?text=เกียรติบัตร+คอมพิวเตอร์'">
+                            <div class="certificate-overlay">
+                                <i class="fas fa-search-plus overlay-icon"></i>
+                            </div>
+                        </div>
+                        <div class="certificate-info">
+                            <span class="certificate-badge">คอมพิวเตอร์</span>
+                            <h3>การประกวดสร้างสรรค์ผลงานด้วยคอมพิวเตอร์(PW ICT Creator 2022)</h3>
+                            <p class="certificate-issuer">
+                                <i class="fas fa-building"></i>
+                                จากโรงเรียนปทุมวิไล
+                            </p>
+                            <p class="certificate-date">
+                                <i class="fas fa-calendar"></i>
+                                พ.ศ. 2565
+                            </p>
+                            <p class="certificate-description">
+                                ได้รับรางวัลชนะเลิศสร้าง Webpage ระดับชั้น ม.1-ม.3
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Certificates -->
+            <div class="category-section">
+                <h2 class="category-title">
+                    <i class="fas fa-trophy"></i>
+                    เกียรติบัตรกิจกรรม
+                </h2>
+                <div class="certificates-grid">
+                    <div class="certificate-card">
+                        <div class="certificate-image" onclick="openModal('cert4.jpg')">
+                            <img src="cert4.jpg" alt="Certificate 3" onerror="this.src='https://via.placeholder.com/400x300/FF6B35/ffffff?text=กิจกรรม+1'">
+                            <div class="certificate-overlay">
+                                <i class="fas fa-search-plus overlay-icon"></i>
+                            </div>
+                        </div>
+                        <div class="certificate-info">
+                            <span class="certificate-badge">กิจกรรม</span>
+                            <h3>เกียรติบัตรกิจกรรมบำเพ็ญประโยชน์</h3>
+                            <p class="certificate-issuer">
+                                <i class="fas fa-school"></i>
+                                โรงเรียนคณะราษฎร์บำรุงปทุมธานี
+                            </p>
+                            <p class="certificate-date">
+                                <i class="fas fa-calendar"></i>
+                                พ.ศ. 2567
+                            </p>
+                            <p class="certificate-description">
+                                ได้รับการเชิดชูเกียรติ ด้านกิจกรรมบำเพ็ญประโยชน์ ระดับ ดี
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Additional certificates if any -->
+                    <div class="certificate-card">
+                        <div class="certificate-image" onclick="openModal('cert3.jpg')">
+                            <img src="cert3.jpg" alt="Certificate 4" onerror="this.src='https://via.placeholder.com/400x300/004E89/ffffff?text=กิจกรรม+เพิ่มเติม'">
+                            <div class="certificate-overlay">
+                                <i class="fas fa-search-plus overlay-icon"></i>
+                            </div>
+                        </div>
+                        <div class="certificate-info">
+                            <span class="certificate-badge">กิจกรรม</span>
+                            <h3>เกียรติบัตรกิจกรรมอื่นๆ</h3>
+                            <p class="certificate-issuer">
+                                <i class="fas fa-building"></i>
+                                กองกิจการนักศึกษา มหาวิทยาลัยธรรมศาสตร์
+                            </p>
+                            <p class="certificate-date">
+                                <i class="fas fa-calendar"></i>
+                                พ.ศ.2567
+                            </p>
+                            <p class="certificate-description">
+                                เกียรติบัตรเพิ่มเติมจากกิจกรรมต่างๆ (ถ้ามี)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- English Certificate -->
+            <div class="category-section">
+                <h2 class="category-title">
+                    <i class="fas fa-globe-americas"></i>
+                    เกียรติบัตรภาษาอังกฤษ
+                </h2>
+                <div class="certificates-grid">
+                    <div class="certificate-card">
+                        <div class="certificate-image" onclick="openModal('cert5.jpg')">
+                            <img src="cert5.jpg" alt="English Certificate" onerror="this.src='https://via.placeholder.com/400x300/FF6B35/ffffff?text=English+Certificate'">
+                            <div class="certificate-overlay">
+                                <i class="fas fa-search-plus overlay-icon"></i>
+                            </div>
+                        </div>
+                        <div class="certificate-info">
+                            <span class="certificate-badge">ภาษา</span>
+                            <h3>ENGLISH DISCOVERIES CEFR REPORT CARD</h3>
+                            <p class="certificate-issuer">
+                                <i class="fas fa-school"></i>
+                                จากสถาบัน Edusoft international
+                            </p>
+                            <p class="certificate-date">
+                                <i class="fas fa-calendar"></i>
+                                พ.ศ. 2568
+                            </p>
+                            <p class="certificate-description">
+                                เกียรติบัตรด้านภาษาอังกฤษ แสดงถึงความสามารถในการสื่อสารและเรียนรู้ภาษาต่างประเทศระดับ B1 Intermediate 2
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="certificateModal" class="modal" onclick="closeModal(event)">
+        <span class="close-modal" onclick="closeModal(event)">&times;</span>
+        <img class="modal-content" id="modalImg" onclick="event.stopPropagation()">
+    </div>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 60; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+            particle.style.width = (Math.random() * 5 + 5) + 'px';
+            particle.style.height = particle.style.width;
+            particlesContainer.appendChild(particle);
+        }
+
+        function openModal(imageSrc) {
+            const modal = document.getElementById('certificateModal');
+            const modalImg = document.getElementById('modalImg');
+            modal.classList.add('show');
+            modalImg.src = imageSrc;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            if (event.target.classList.contains('modal') || event.target.classList.contains('close-modal')) {
+                const modal = document.getElementById('certificateModal');
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close modal with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('certificateModal');
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
